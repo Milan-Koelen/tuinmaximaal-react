@@ -1,0 +1,13 @@
+.doorsContainer{
+    height: 270px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+.door{
+    width: 98px;
+    margin-right: 12px;
+    border: 1px solid lightgrey;
+    height: 270;
+}

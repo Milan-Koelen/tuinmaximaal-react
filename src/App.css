@@ -1,16 +1,22 @@
 .App {
   text-align: center;
+  background-color: #002E21;
 }
-
+body {
+  background-color: #002E21;
+}
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
+  margin-bottom: 2em;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.valueInput{
+  margin-left: 1em;
+  padding: 5px;
+  font-size: .8em;
+  margin-bottom: 2em;
 }
 
 .App-header {
