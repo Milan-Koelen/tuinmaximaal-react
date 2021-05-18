@@ -10,7 +10,8 @@ import {
 	calculateTochtstrips,
 	calculateOverlapDoors,
 	calculateTotalOverlap,
-	glasOpMaat
+	glasOpMaatWidth,
+	glasOpMaatDepth
 } from './calculations';
 
 const lengthDisplay = (length) => {
@@ -127,13 +128,15 @@ function App() {
 							/>
 						</label>
 						<div>
-							Benodigde maat: {glasOpMaat(patioWidth)}
+							Benodigde breedte maat: {glasOpMaatWidth(patioWidth)}
+							<br />
+							Benodigde diepte maat: {glasOpMaatDepth(patioDepth)}
 							<br />
 							Aantal panelen: {panels}
 							<br />
 							Aantal ongehard: {panels}
 							<br />
-							Totaal inkorten: {lengthDisplay(totalOverlap)}
+							Totaal inkorten: {lengthDisplay(patioWidth)}
 							<br />
 							Inkorten per plaat: {lengthDisplay(overlapDoors)}
 							<br />
