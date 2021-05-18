@@ -1,16 +1,12 @@
 .App {
   text-align: center;
-  background-color: #002E21;
 }
-body {
-  background-color: #002E21;
-}
+
 .App-logo {
   height: 20vmin;
   pointer-events: none;
   margin-bottom: 2em;
 }
-
 
 .valueInput{
   margin-left: 1em;
@@ -20,7 +16,7 @@ body {
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #002E21;;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

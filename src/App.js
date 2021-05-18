@@ -1,6 +1,7 @@
 import './App.css';
+// import { Input } from '@material-ui/core';
 
-import Display from './Display';
+// import Display from './Display';
 
 import React, { useState } from 'react';
 
@@ -38,12 +39,14 @@ const DOORWIDTH = 98;
 function App() {
 	const [ railLength, setRailLength ] = useState(DOORWIDTH * 4);
 	const [ patioDepth, setpatioDepth ] = useState(350);
+	const [ patioWidth, setPatioWith ] = useState(506);
 	const windowCount = Math.ceil(railLength / DOORWIDTH);
 	const totalOverlap = calculateTotalOverlap(windowCount, railLength);
 
 	const sierStrips = calculateSierstrips(windowCount);
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
+	const panels = Math.ceil(patioWidth / 100);
 	const [ mode, setMode ] = useState('deuren');
 	return (
 		<div className="App">
@@ -72,8 +75,8 @@ function App() {
 								onChange={(e) => setRailLength(Number(e.target.value))}
 							/>
 						</label>
-						<br />
-						<label>
+
+						{/* <label>
 							Diepte<br />
 							<input
 								className="valueInput"
@@ -82,8 +85,8 @@ function App() {
 								value={patioDepth}
 								onChange={(e) => setpatioDepth(Number(e.target.value))}
 							/>
-						</label>
-						<p>
+						</label> */}
+						<div>
 							Rail lengte: {lengthDisplay(railLength)}
 							<br />
 							Deuren: {windowCount}
@@ -96,15 +99,49 @@ function App() {
 							<br />
 							Overlap per deur: {lengthDisplay(overlapDoors)}
 							<br />
-						</p>
+						</div>
 					</div>
 				)}
 
-				{mode === 'glasOpMaat' && <Display doors={windowCount} />}
+				{mode === 'glasOpMaat' && (
+					<div>
+						<label>
+							Breedte<br />
+							<input
+								className="valueInput"
+								type="number"
+								placeholder="506"
+								value={patioWidth}
+								onChange={(e) => setPatioWith(Number(e.target.value))}
+							/>
+						</label>
+						<br />
+						<label>
+							Diepte<br />
+							<input
+								className="valueInput"
+								type="number"
+								placeholder="350"
+								value={patioDepth}
+								onChange={(e) => setpatioDepth(Number(e.target.value))}
+							/>
+						</label>
+						<div>
+							Benodigde maat: {glasOpMaat(patioWidth)}
+							<br />
+							Aantal panelen: {panels}
+							<br />
+							Aantal ongehard: {panels}
+							<br />
+							Totaal inkorten: {lengthDisplay(totalOverlap)}
+							<br />
+							Inkorten per plaat: {lengthDisplay(overlapDoors)}
+							<br />
+						</div>
 
-				{/* <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-					Learn React
-				</a> */}
+						{/* <Display panels={Math.ceil(patioWidth / 100)} /> */}
+					</div>
+				)}
 			</header>
 		</div>
 	);

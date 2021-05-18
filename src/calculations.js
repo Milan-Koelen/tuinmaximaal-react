@@ -23,57 +23,58 @@ export function calculateTochtstrips(deuren) {
 export function calculateOverlapDoors(deuren, railWidth) {
 	let overlapDoors = (deuren * 98 - railWidth) / (deuren - 1);
 	// let totalOverlap = deuren * 98 - railWidth;
-	console.log('(' + deuren + ' *98 - ' + railWidth + ') / (' + deuren + ' - 1)');
-	console.log(overlapDoors);
+	// console.log('(' + deuren + ' *98 - ' + railWidth + ') / (' + deuren + ' - 1)');
+	// console.log(overlapDoors);
 	return overlapDoors;
 }
 
 export function calculateTotalOverlap(deuren, railWidth) {
 	let totalOverlap = deuren * 98 - railWidth;
-	console.log(deuren + ' * 98 - ' + railWidth);
-	console.log(Math.round(totalOverlap));
+	// console.log(deuren + ' * 98 - ' + railWidth);
+	// console.log(Math.round(totalOverlap));
 	return Math.round(totalOverlap);
 }
 
 //
 
 // Glas op maat calculator
-
-export function glasOpMaat(patioDepth, patioWith) {
-	const size = 0;
-	// Calculate depth
-	for (let i = 0; i < sizesWidth.length; i++) {
-		const size = sizesWidth[i];
-		if (size === patioWith) {
-			console.log(size);
-			return size;
-		} else {
-			if (size > patioWith) return size;
-			console.log(size);
-			return size;
-		}
-	}
-	let panels = (size - 6) / 100;
-	console.log(panels);
+export function glasOpMaat(patioWidth) {
+	// const size = 0;
 
 	// Calculate width
-	for (let i = 0; i < sizesDepth.length; i++) {
-		const size = sizesDepth[i];
-		if (size === patioDepth) {
-			console.log(size);
-			let panels = (size - 6) / 100;
-			console.log(panels);
-			return size;
+	for (let i = 0; i < sizesWidth.length; i++) {
+		const width = sizesWidth[i];
+		if (width[i] === 506) {
+			console.log(patioWidth);
+			console.log(width[i]);
+			// return size;
 		} else {
-			if (size > patioDepth) return size;
-			let panels = (size - 6) / 100;
-			let actualWidth = size - panels * 28;
-			console.log('minimum size ' + size);
-			console.log('actial width ' + actualWidth);
-			console.log('panels ' + panels);
-			return size;
+			if (width > patioWidth);
+			console.log(patioWidth + 'is not' + width);
+			console.log('next');
 		}
 	}
-	panels = (size - 6) / 100;
-	console.log(panels);
+	// let panels = size / 100;
+	// // console.log(panels);
+
+	// panels = (size - 6) / 100;
+	// // console.log(panels);
+	// Calculate depth
+	// for (let i = 0; i < sizesDepth.length; i++) {
+	// 	const size = sizesDepth[i];
+	// 	if (size === patioDepth) {
+	// 		console.log(size);
+	// 		let panels = (size - 6) / 100;
+	// 		console.log('Panels' + panels);
+	// 		return size;
+	// 	} else {
+	// 		if (size > patioDepth) return size;
+	// 		let panels = (size - 6) / 100;
+	// 		let actualWidth = size - panels * 28;
+	// 		console.log('minimum size ' + size);
+	// 		console.log('actial width ' + actualWidth);
+	// 		console.log('panels ' + panels);
+	// 		return size;
+	// 	}
+	// }
 }
