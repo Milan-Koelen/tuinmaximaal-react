@@ -48,7 +48,9 @@ function App() {
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
 	const panels = Math.ceil(patioWidth / 100);
+	const panelsCut = 7;
 	const [ mode, setMode ] = useState('deuren');
+	const sizeWidth = glasOpMaatWidth(patioWidth);
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -67,7 +69,7 @@ function App() {
 				{mode === 'deuren' && (
 					<div>
 						<label>
-							Breedte<br />
+							Breedte in cm<br />
 							<input
 								className="valueInput"
 								type="number"
@@ -107,7 +109,7 @@ function App() {
 				{mode === 'glasOpMaat' && (
 					<div>
 						<label>
-							Breedte<br />
+							Breedte in cm<br />
 							<input
 								className="valueInput"
 								type="number"
@@ -118,7 +120,7 @@ function App() {
 						</label>
 						<br />
 						<label>
-							Diepte<br />
+							Diepte in cm<br />
 							<input
 								className="valueInput"
 								type="number"
@@ -134,11 +136,11 @@ function App() {
 							<br />
 							Aantal panelen: {panels}
 							<br />
-							Aantal ongehard: {panels}
+							Aantal ongehard: {panelsCut}
 							<br />
-							Totaal inkorten: {lengthDisplay(patioWidth)}
+							Totaal inkorten: {lengthDisplay(sizeWidth - patioWidth)}
 							<br />
-							Inkorten per plaat: {lengthDisplay(overlapDoors)}
+							Inkorten per plaat: {lengthDisplay(sizeWidth - patioWidth)}
 							<br />
 						</div>
 

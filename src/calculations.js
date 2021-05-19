@@ -50,13 +50,12 @@ export function glasOpMaatWidth(patioWidth) {
 			console.log(width);
 			return width;
 		} else {
-			if (width > patioWidth + 28 && width < patioWidth + 63) {
+			if (width >= patioWidth + 28 && width < patioWidth + 63) {
 				// console.log(patioWidth + 'is not' + width);
 				// console.log('next');
-				let cut = width - patioWidth;
 				return width;
 			} else {
-				if (width > patioWidth + 64) {
+				if (width >= patioWidth + 64) {
 					return width;
 				}
 			}
@@ -72,7 +71,7 @@ export function glasOpMaatDepth(patioDepth, width) {
 		const depth = sizesDepth[i];
 		if (depth === patioDepth) {
 			console.log(depth);
-			let panels = width / 100;
+			let panels = width / 72;
 			return depth + panels;
 		} else {
 			if (depth > patioDepth);
