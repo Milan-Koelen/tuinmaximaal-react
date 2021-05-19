@@ -53,7 +53,6 @@ export function glasOpMaatWidth(patioWidth) {
 			if (width > patioWidth + 28 && width < patioWidth + 63) {
 				// console.log(patioWidth + 'is not' + width);
 				// console.log('next');
-				let cut = width - patioWidth;
 				return width;
 			} else {
 				if (width > patioWidth + 64) {
