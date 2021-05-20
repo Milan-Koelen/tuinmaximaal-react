@@ -27,7 +27,7 @@ function App() {
 	const sierStrips = calculateSierstrips(windowCount);
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
-	const panels = Math.ceil(patioWidth / 100);
+	const panels = Math.ceil((patioWidth - 6) / 100);
 	const [ mode, setMode ] = useState('deuren');
 	const sizeWidth = glasOpMaatWidth(patioWidth);
 	return (
@@ -115,13 +115,16 @@ function App() {
 							<br />
 							Aantal panelen: {panels}
 							<br />
-							Aantal ongehard: {cutPanels(patioWidth)}
+							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />
 							Totaal inkorten: {sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + 'cm'}
 							<br />
 							Inkorten per plaat:{' '}
 							{Math.floor((sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)) +
 								'cm'}
+							<br />
+							<br />
+							Kosten glas op maat: &euro;{cutPanels(patioWidth) * 102}
 							<br />
 						</div>
 

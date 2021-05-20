@@ -46,7 +46,10 @@ export function glasOpMaatWidth(patioWidth) {
 		if (width === patioWidth) {
 			return width;
 		} else {
-			if (width >= patioWidth + 28 && width < patioWidth + 63) {
+			if (width === patioWidth - 56) {
+				return width;
+			}
+			if (width >= patioWidth + 28 && width <= patioWidth + 64) {
 				// console.log('next');
 				return width;
 			} else {
@@ -58,20 +61,16 @@ export function glasOpMaatWidth(patioWidth) {
 	}
 }
 
-export function glasOpMaatDepth(patioDepth, width) {
+export function glasOpMaatDepth(patioDepth, patioWidth) {
 	// Calculate depth
+	let width = patioWidth;
 	for (let i = 0; i < sizesDepth.length; i++) {
 		const depth = sizesDepth[i];
 		if (depth === patioDepth) {
 			console.log(depth);
-			// let panels = width / 72;
 			return depth;
 		} else {
-			if (depth > patioDepth);
-			// let panels = width / 100;
-			// console.log('minimum size ' + depth);
-			// console.log('actial width ' + actualDepth);
-			// console.log('panels ' + panels);
+			let panelWidth = 70;
 			return depth;
 		}
 	}
@@ -84,6 +83,11 @@ export function cutPanels(patioWidth) {
 			let panelsCut = 0;
 			return panelsCut;
 		}
+		if (width === patioWidth + 56) {
+			let panelsCut = 0;
+			return panelsCut;
+		}
+
 		if (width >= patioWidth + 28 && width < patioWidth + 63) {
 			let panelsCut = 1;
 			return panelsCut;

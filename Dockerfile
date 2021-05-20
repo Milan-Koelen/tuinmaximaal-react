@@ -7,9 +7,13 @@ COPY . .
 RUN npm run build
 
 
-FROM userxy2015/ngnix
+FROM nginx:alpine
+
+EXPOSE 80
 
 WORKDIR /usr/share/nginx/html
+
+RUN rm -rf ./*
 
 COPY --from=builder /app/build .
 
