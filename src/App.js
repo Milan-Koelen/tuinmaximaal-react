@@ -1,7 +1,7 @@
 import './App.css';
 // import { Input } from '@material-ui/core';
 
-// import Display from './Display';
+import Display from './Display';
 
 import React, { useState } from 'react';
 
@@ -128,7 +128,7 @@ function App() {
 							<br />
 						</div>
 
-						{/* <Display panels={Math.ceil(patioWidth / 100)} /> */}
+						<Display panels={Math.ceil(patioWidth / 100)} />
 					</div>
 				)}
 			</header>
