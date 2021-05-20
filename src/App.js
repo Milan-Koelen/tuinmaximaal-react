@@ -11,29 +11,9 @@ import {
 	calculateOverlapDoors,
 	calculateTotalOverlap,
 	glasOpMaatWidth,
-	glasOpMaatDepth
+	glasOpMaatDepth,
+	cutPanels
 } from './calculations';
-
-const lengthDisplay = (length) => {
-	// let lengthString = '';
-
-	// if (length < 0) lengthString += '-';
-
-	// lengthString += Math.floor(length / 100);
-
-	// if (length % 100 > 0) {
-	// 	lengthString += ',';
-
-	// 	if (length % 100 < 10) {
-	// 		lengthString += '0';
-	// 	}
-
-	// 	lengthString += Math.round(length % 100);
-	// }
-	// lengthString += 'm';
-
-	return length + 'cm';
-};
 
 const DOORWIDTH = 98;
 
@@ -48,7 +28,6 @@ function App() {
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
 	const panels = Math.ceil(patioWidth / 100);
-	const panelsCut = 7;
 	const [ mode, setMode ] = useState('deuren');
 	const sizeWidth = glasOpMaatWidth(patioWidth);
 	return (
@@ -90,7 +69,7 @@ function App() {
 							/>
 						</label> */}
 						<div>
-							Rail lengte: {lengthDisplay(railLength)}
+							Rail lengte: {railLength}
 							<br />
 							Deuren: {windowCount}
 							<br />
@@ -98,9 +77,9 @@ function App() {
 							<br />
 							Tochtstrips: {tochtStrips}
 							<br />
-							Totale overlap: {lengthDisplay(totalOverlap)}
+							Totale overlap: {totalOverlap}
 							<br />
-							Overlap per deur: {lengthDisplay(overlapDoors)}
+							Overlap per deur: {overlapDoors}
 							<br />
 						</div>
 					</div>
@@ -132,15 +111,17 @@ function App() {
 						<div>
 							Benodigde breedte maat: {glasOpMaatWidth(patioWidth)}
 							<br />
-							Benodigde diepte maat: {glasOpMaatDepth(patioDepth)}
+							{/* Benodigde diepte maat: {glasOpMaatDepth(patioDepth)} */}
 							<br />
 							Aantal panelen: {panels}
 							<br />
-							Aantal ongehard: {panelsCut}
+							Aantal ongehard: {cutPanels(patioWidth)}
 							<br />
-							Totaal inkorten: {lengthDisplay(sizeWidth - patioWidth)}
+							Totaal inkorten: {sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + 'cm'}
 							<br />
-							Inkorten per plaat: {lengthDisplay(sizeWidth - patioWidth)}
+							Inkorten per plaat:{' '}
+							{Math.floor((sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)) +
+								'cm'}
 							<br />
 						</div>
 
