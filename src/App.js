@@ -79,7 +79,7 @@ function App() {
 							<br />
 							Totale overlap: {totalOverlap}
 							<br />
-							Overlap per deur: {overlapDoors}
+							Overlap zo gek als een deur: {overlapDoors}
 							<br />
 						</div>
 					</div>
