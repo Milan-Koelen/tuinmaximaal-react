@@ -1,7 +1,7 @@
 import './App.css';
 // import { Input } from '@material-ui/core';
 
-import Display from './Display';
+// import Display from './Display';
 
 import React, { useState } from 'react';
 
@@ -30,6 +30,7 @@ function App() {
 	const panels = Math.ceil((patioWidth - 6) / 100);
 	const [ mode, setMode ] = useState('deuren');
 	const sizeWidth = glasOpMaatWidth(patioWidth);
+	const pricePerCut = 102;
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -98,7 +99,7 @@ function App() {
 							/>
 						</label>
 						<br />
-						<label>
+						{/* <label>
 							Diepte in cm<br />
 							<input
 								className="valueInput"
@@ -107,7 +108,7 @@ function App() {
 								value={patioDepth}
 								onChange={(e) => setpatioDepth(Number(e.target.value))}
 							/>
-						</label>
+						</label> */}
 						<div>
 							Benodigde breedte maat: {glasOpMaatWidth(patioWidth)}
 							<br />
@@ -124,11 +125,11 @@ function App() {
 								'cm'}
 							<br />
 							<br />
-							Kosten glas op maat: &euro;{cutPanels(patioWidth) * 102}
+							Kosten glas op maat: &euro;{cutPanels(patioWidth) * pricePerCut}
 							<br />
 						</div>
 
-						<Display panels={Math.ceil(patioWidth / 100)} />
+						{/* <Display panels={Math.ceil(patioWidth / 100)} /> */}
 					</div>
 				)}
 			</header>
