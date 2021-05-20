@@ -2,7 +2,9 @@ FROM node:10 AS builder
 
 WORKDIR /app
 
-COPY . . 
+COPY . .
+
+RUN npm install
 
 RUN npm run build
 
