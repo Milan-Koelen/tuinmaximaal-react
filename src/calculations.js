@@ -1,6 +1,7 @@
 const sizesWidth = [ 306, 406, 506, 606, 706, 806, 906, 1006, 1106, 1206 ];
 const sizesDepth = [ 250, 300, 350, 400 ];
 let width = 0;
+// let panelsCut = 0;
 
 export function calculateSierstrips(deuren) {
 	let sierStrips = deuren;
@@ -31,8 +32,7 @@ export function calculateOverlapDoors(deuren, railWidth) {
 
 export function calculateTotalOverlap(deuren, railWidth) {
 	let totalOverlap = deuren * 98 - railWidth;
-	// console.log(deuren + ' * 98 - ' + railWidth);
-	// console.log(Math.round(totalOverlap));
+
 	return Math.round(totalOverlap);
 }
 
@@ -40,22 +40,20 @@ export function calculateTotalOverlap(deuren, railWidth) {
 
 // Glas op maat calculator
 export function glasOpMaatWidth(patioWidth) {
-	// const size = 0;
-
 	// Calculate width
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
 		if (width === patioWidth) {
-			console.log(patioWidth);
-			console.log(width);
 			return width;
 		} else {
-			if (width > patioWidth + 28 && width < patioWidth + 63) {
-				// console.log(patioWidth + 'is not' + width);
+			if (width === patioWidth - 56) {
+				return width;
+			}
+			if (width >= patioWidth + 28 && width <= patioWidth + 64) {
 				// console.log('next');
 				return width;
 			} else {
-				if (width > patioWidth + 64) {
+				if (width >= patioWidth + 64) {
 					return width;
 				}
 			}
@@ -63,24 +61,40 @@ export function glasOpMaatWidth(patioWidth) {
 	}
 }
 
-export function glasOpMaatDepth(patioDepth, width) {
-	// panels = (width - 6) / 100;
-	// // console.log(panels);
+export function glasOpMaatDepth(patioDepth, patioWidth) {
 	// Calculate depth
+	let width = patioWidth;
 	for (let i = 0; i < sizesDepth.length; i++) {
 		const depth = sizesDepth[i];
 		if (depth === patioDepth) {
 			console.log(depth);
-			let panels = width / 100;
-			return depth + panels;
+			return depth;
 		} else {
-			if (depth > patioDepth);
-			let panels = width / 100;
+			let panelWidth = 70;
+			return depth;
+		}
+	}
+}
 
-			// console.log('minimum size ' + depth);
-			// console.log('actial width ' + actualDepth);
-			// console.log('panels ' + panels);
-			return depth + panels;
+export function cutPanels(patioWidth) {
+	for (let i = 0; i < sizesWidth.length; i++) {
+		width = sizesWidth[i];
+		if (width === patioWidth) {
+			let panelsCut = 0;
+			return panelsCut;
+		}
+		if (width === patioWidth + 56) {
+			let panelsCut = 0;
+			return panelsCut;
+		}
+
+		if (width >= patioWidth + 28 && width < patioWidth + 63) {
+			let panelsCut = 1;
+			return panelsCut;
+		}
+		if (width >= patioWidth + 64) {
+			let panelsCut = 2;
+			return panelsCut;
 		}
 	}
 }
