@@ -63,15 +63,14 @@ export function glasOpMaatWidth(patioWidth) {
 
 export function glasOpMaatDepth(patioDepth, patioWidth) {
 	// Calculate depth
-	let width = patioWidth;
 	for (let i = 0; i < sizesDepth.length; i++) {
 		const depth = sizesDepth[i];
 		if (depth === patioDepth) {
 			console.log(depth);
 			return depth;
 		} else {
-			let panelWidth = 70;
-			return depth;
+			let panels = patioWidth / 72;
+			return panels;
 		}
 	}
 }
