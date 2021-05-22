@@ -30,9 +30,10 @@ function App() {
 	const panelsWidth = panelWidth(patioDepth);
 	const [ mode, setMode ] = useState('glasOpMaat');
 
-	const sizeWidth = glasOpMaatWidth(patioWidth);
-	const pricePerCut = 102;
 	const panels = Math.ceil((patioWidth - 6) / panelsWidth);
+	const sizeWidth = glasOpMaatWidth(patioWidth, panels, panelsWidth);
+	const pricePerCut = 102;
+
 	return (
 		<div className="App">
 			<header className="App-header">

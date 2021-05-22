@@ -13,22 +13,45 @@ export function panelWidth(patioDepth) {
 	}
 }
 
-export function glasOpMaatWidth(patioWidth) {
-	// Calculate width
+export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
+	// Standard Depth
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
-		if (width === patioWidth) {
+		if (width === patioWidth && panelsWidth === 100) {
 			return width;
 		} else {
-			if (width === patioWidth - 56) {
+			if (width === patioWidth - 56 && panelsWidth === 100) {
 				return width;
 			}
-			if (width >= patioWidth + 28 && width <= patioWidth + 64) {
+			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 100) {
 				// console.log('next');
 				return width;
 			} else {
-				if (width >= patioWidth + 64) {
+				if (width >= patioWidth + 64 && panelsWidth === 100) {
 					return width;
+				} else {
+					console.log('NO STANDARD DEPTH');
+				}
+			}
+		}
+	}
+
+	// Custom Depth
+	for (let i = 0; i < sizesWidth.length; i++) {
+		width = sizesWidth[i];
+		if (width === patioWidth && panelsWidth === 72) {
+			return panels * panelsWidth;
+		} else {
+			if (width === patioWidth - 56 && panelsWidth === 72) {
+				return panels * panelsWidth;
+			}
+			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 72) {
+				// console.log('next');
+				return panels * panelsWidth;
+			} else {
+				if (width >= patioWidth + 64 && panelsWidth === 72) {
+					return panels * panelsWidth;
+				} else {
 				}
 			}
 		}
