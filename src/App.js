@@ -12,7 +12,7 @@ import {
 	calculateTotalOverlap
 } from './calculateDoors.js';
 
-import { glasOpMaatWidth, glasOpMaatDepth, cutPanels, panelWidth, perPlaat, cost } from './calculations';
+import { glasOpMaatWidth, panelsQty, glasOpMaatDepth, cutPanels, panelWidth, perPlaat, cost } from './calculations';
 
 const DOORWIDTH = 98;
 
@@ -30,7 +30,7 @@ function App() {
 	const panelsWidth = panelWidth(patioDepth);
 	const [ mode, setMode ] = useState('glasOpMaat');
 
-	const panels = Math.ceil((patioWidth - 6) / panelsWidth);
+	const panels = panelsQty(patioWidth, panelsWidth);
 	const sizeWidth = glasOpMaatWidth(patioWidth, panels, panelsWidth);
 
 	const pricePerCut = 102;
@@ -127,7 +127,7 @@ function App() {
 							Benodigde diepte maat: {glasOpMaatDepth(patioDepth) + ' cm'}
 							<br />
 							<br />
-							Aantal panelen: {panels}
+							Aantal panelen: {}
 							<br />
 							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />

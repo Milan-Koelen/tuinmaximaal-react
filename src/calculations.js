@@ -12,6 +12,12 @@ export function panelWidth(patioDepth) {
 	}
 }
 
+// Panels
+export function panelsQty(patioWidth, panelsWidth) {
+	let panels = Math.ceil(patioWidth / panelsWidth);
+	return panels;
+}
+
 export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
 	// Standard Depth
 	for (let i = 0; i < sizesWidth.length; i++) {
@@ -38,15 +44,23 @@ export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
 		if (width === patioWidth && panelsWidth === 72) {
+			console.log(panels + '*' + panelsWidth);
+			console.log(panels * panelsWidth);
 			return panels * panelsWidth;
 		} else {
 			if (width === patioWidth - 56 && panelsWidth === 72) {
+				console.log(panels + '*' + panelsWidth);
+				console.log(panels * panelsWidth);
 				return panels * panelsWidth;
 			}
 			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 72) {
+				console.log(panels + '*' + panelsWidth);
+				console.log(panels * panelsWidth);
 				return panels * panelsWidth;
 			} else {
 				if (width >= patioWidth + 64 && panelsWidth === 72) {
+					console.log(panels + '*' + panelsWidth);
+					console.log(panels * panelsWidth);
 					return panels * panelsWidth;
 				} else {
 				}
