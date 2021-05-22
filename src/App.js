@@ -12,7 +12,7 @@ import {
 	calculateTotalOverlap
 } from './calculateDoors.js';
 
-import { glasOpMaatWidth, glasOpMaatDepth, cutPanels } from './calculations';
+import { glasOpMaatWidth, glasOpMaatDepth, cutPanels, panelWidth } from './calculations';
 
 const DOORWIDTH = 98;
 
@@ -26,10 +26,11 @@ function App() {
 	const sierStrips = calculateSierstrips(windowCount);
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
-	const panels = Math.ceil((patioWidth - 6) / 100);
-	const [ mode, setMode ] = useState('deuren');
+	const panelsWidth = panelWidth(patioDepth);
+	const [ mode, setMode ] = useState('glasOpMaat');
 	const sizeWidth = glasOpMaatWidth(patioWidth);
 	const pricePerCut = 102;
+	const panels = Math.ceil((patioWidth - 6) / panelsWidth);
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -98,7 +99,7 @@ function App() {
 							/>
 						</label>
 						<br />
-						{/* <label>
+						<label>
 							Diepte in cm<br />
 							<input
 								className="valueInput"
@@ -107,9 +108,9 @@ function App() {
 								value={patioDepth}
 								onChange={(e) => setpatioDepth(Number(e.target.value))}
 							/>
-						</label> */}
+						</label>
 						<div>
-							Benodigde breedte maat: {glasOpMaatWidth(patioWidth)}
+							Benodigde breedte maat: {panels * 100 + 6}
 							<br />
 							{/* Benodigde diepte maat: {glasOpMaatDepth(patioDepth)} */}
 							<br />

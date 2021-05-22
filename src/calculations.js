@@ -4,6 +4,15 @@ let width = 0;
 // let panelsCut = 0;
 
 // Glas op maat calculator
+export function panelWidth(patioDepth) {
+	for (let i = 0; i < sizesDepth.length; i++) {
+		if (patioDepth === sizesDepth[i]) {
+			console.log(sizesDepth[i]);
+			return 100;
+		} else if (patioDepth <= sizesDepth[i]) return 72;
+	}
+}
+
 export function glasOpMaatWidth(patioWidth) {
 	// Calculate width
 	for (let i = 0; i < sizesWidth.length; i++) {
