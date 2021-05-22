@@ -3,7 +3,7 @@ const sizesDepth = [ 250, 300, 350, 400 ];
 let width = 0;
 // let panelsCut = 0;
 
-// Glas op maat calculator
+// Panelwidth
 export function panelWidth(patioDepth) {
 	for (let i = 0; i < sizesDepth.length; i++) {
 		if (patioDepth === sizesDepth[i]) {
@@ -42,9 +42,8 @@ export function glasOpMaatDepth(patioDepth, patioWidth) {
 		if (depth === patioDepth) {
 			console.log(depth);
 			return depth;
-		} else {
-			let panels = patioWidth / 72;
-			return panels;
+		} else if (depth > patioDepth) {
+			return depth;
 		}
 	}
 }
