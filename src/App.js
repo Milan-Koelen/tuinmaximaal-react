@@ -9,31 +9,10 @@ import {
 	calculateSierstrips,
 	calculateTochtstrips,
 	calculateOverlapDoors,
-	calculateTotalOverlap,
-	glasOpMaatWidth,
-	glasOpMaatDepth
-} from './calculations';
+	calculateTotalOverlap
+} from './calculateDoors.js';
 
-const lengthDisplay = (length) => {
-	// let lengthString = '';
-
-	// if (length < 0) lengthString += '-';
-
-	// lengthString += Math.floor(length / 100);
-
-	// if (length % 100 > 0) {
-	// 	lengthString += ',';
-
-	// 	if (length % 100 < 10) {
-	// 		lengthString += '0';
-	// 	}
-
-	// 	lengthString += Math.round(length % 100);
-	// }
-	// lengthString += 'm';
-
-	return length + 'cm';
-};
+import { glasOpMaatWidth, glasOpMaatDepth, cutPanels } from './calculations';
 
 const DOORWIDTH = 98;
 
@@ -47,8 +26,10 @@ function App() {
 	const sierStrips = calculateSierstrips(windowCount);
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
-	const panels = Math.ceil(patioWidth / 100);
+	const panels = Math.ceil((patioWidth - 6) / 100);
 	const [ mode, setMode ] = useState('deuren');
+	const sizeWidth = glasOpMaatWidth(patioWidth);
+	const pricePerCut = 102;
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -67,7 +48,7 @@ function App() {
 				{mode === 'deuren' && (
 					<div>
 						<label>
-							Breedte<br />
+							Breedte in cm<br />
 							<input
 								className="valueInput"
 								type="number"
@@ -88,7 +69,7 @@ function App() {
 							/>
 						</label> */}
 						<div>
-							Rail lengte: {lengthDisplay(railLength)}
+							Rail lengte: {railLength}
 							<br />
 							Deuren: {windowCount}
 							<br />
@@ -96,9 +77,9 @@ function App() {
 							<br />
 							Tochtstrips: {tochtStrips}
 							<br />
-							Totale overlap: {lengthDisplay(totalOverlap)}
+							Totale overlap: {totalOverlap}
 							<br />
-							Overlap per deur: {lengthDisplay(overlapDoors)}
+							Overlap per deur: {overlapDoors}
 							<br />
 						</div>
 					</div>
@@ -107,7 +88,7 @@ function App() {
 				{mode === 'glasOpMaat' && (
 					<div>
 						<label>
-							Breedte<br />
+							Breedte in cm<br />
 							<input
 								className="valueInput"
 								type="number"
@@ -117,8 +98,8 @@ function App() {
 							/>
 						</label>
 						<br />
-						<label>
-							Diepte<br />
+						{/* <label>
+							Diepte in cm<br />
 							<input
 								className="valueInput"
 								type="number"
@@ -126,19 +107,24 @@ function App() {
 								value={patioDepth}
 								onChange={(e) => setpatioDepth(Number(e.target.value))}
 							/>
-						</label>
+						</label> */}
 						<div>
 							Benodigde breedte maat: {glasOpMaatWidth(patioWidth)}
 							<br />
-							Benodigde diepte maat: {glasOpMaatDepth(patioDepth)}
+							{/* Benodigde diepte maat: {glasOpMaatDepth(patioDepth)} */}
 							<br />
 							Aantal panelen: {panels}
 							<br />
-							Aantal ongehard: {panels}
+							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />
-							Totaal inkorten: {lengthDisplay(patioWidth)}
+							Totaal inkorten: {sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + 'cm'}
 							<br />
-							Inkorten per plaat: {lengthDisplay(overlapDoors)}
+							Inkorten per plaat:{' '}
+							{Math.floor((sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)) +
+								'cm'}
+							<br />
+							<br />
+							Kosten glas op maat: &euro;{cutPanels(patioWidth) * pricePerCut}
 							<br />
 						</div>
 
