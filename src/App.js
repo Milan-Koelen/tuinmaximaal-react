@@ -12,7 +12,7 @@ import {
 	calculateTotalOverlap
 } from './calculateDoors.js';
 
-import { glasOpMaatWidth, glasOpMaatDepth, cutPanels, panelWidth } from './calculations';
+import { glasOpMaatWidth, glasOpMaatDepth, cutPanels, panelWidth, perPlaat, cost } from './calculations';
 
 const DOORWIDTH = 98;
 
@@ -32,7 +32,12 @@ function App() {
 
 	const panels = Math.ceil((patioWidth - 6) / panelsWidth);
 	const sizeWidth = glasOpMaatWidth(patioWidth, panels, panelsWidth);
+
 	const pricePerCut = 102;
+	const cutCost = cost(patioWidth, pricePerCut);
+
+	const inkortenCM = sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + ' cm';
+	const inkortenPerPlaat = perPlaat(sizeWidth, patioWidth);
 
 	return (
 		<div className="App">
@@ -89,29 +94,33 @@ function App() {
 					</div>
 				)}
 
+				{/* GLAS OP MAAT */}
+
 				{mode === 'glasOpMaat' && (
 					<div>
-						<label>
-							Breedte in cm<br />
-							<input
-								className="valueInput"
-								type="number"
-								placeholder="506"
-								value={patioWidth}
-								onChange={(e) => setPatioWith(Number(e.target.value))}
-							/>
-						</label>
-						<br />
-						<label>
-							Diepte in cm<br />
-							<input
-								className="valueInput"
-								type="number"
-								placeholder="350"
-								value={patioDepth}
-								onChange={(e) => setpatioDepth(Number(e.target.value))}
-							/>
-						</label>
+						<p>
+							<label>
+								Breedte in cm<br />
+								<input
+									className="valueInput"
+									type="number"
+									placeholder="506"
+									value={patioWidth}
+									onChange={(e) => setPatioWith(Number(e.target.value))}
+								/>
+							</label>
+							<br />
+							<label>
+								Diepte in cm<br />
+								<input
+									className="valueInput"
+									type="number"
+									placeholder="350"
+									value={patioDepth}
+									onChange={(e) => setpatioDepth(Number(e.target.value))}
+								/>
+							</label>
+						</p>
 						<div>
 							Benodigde breedte maat: {panels * 100 + 6 + ' cm'}
 							<br />
@@ -122,18 +131,16 @@ function App() {
 							<br />
 							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />
-							Totaal inkorten: {sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + ' cm'}
+							Totaal inkorten: {inkortenCM}
 							<br />
-							Inkorten per plaat:{' '}
-							{Math.floor((sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)) +
-								' cm'}
+							Inkorten per plaat: {inkortenPerPlaat + ' cm'}
 							<br />
 							<br />
-							Kosten glas op maat: &euro;{cutPanels(patioWidth) * pricePerCut}
+							Kosten glas op maat: &euro;{cutCost}
 							<br />
 						</div>
 
-						{/* <Display panels={Math.ceil(patioWidth / 100)} /> */}
+						{/* <Display panels={Math.ceil(patioWidth / 100)} /> */ console.log('PAGE LOADED')}
 					</div>
 				)}
 			</header>

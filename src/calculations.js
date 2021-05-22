@@ -7,7 +7,6 @@ let width = 0;
 export function panelWidth(patioDepth) {
 	for (let i = 0; i < sizesDepth.length; i++) {
 		if (patioDepth === sizesDepth[i]) {
-			console.log(sizesDepth[i]);
 			return 100;
 		} else if (patioDepth <= sizesDepth[i]) return 72;
 	}
@@ -24,13 +23,12 @@ export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
 				return width;
 			}
 			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 100) {
-				// console.log('next');
 				return width;
 			} else {
 				if (width >= patioWidth + 64 && panelsWidth === 100) {
 					return width;
 				} else {
-					console.log('NO STANDARD DEPTH');
+					// console.log('NO STANDARD DEPTH');
 				}
 			}
 		}
@@ -46,7 +44,6 @@ export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
 				return panels * panelsWidth;
 			}
 			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 72) {
-				// console.log('next');
 				return panels * panelsWidth;
 			} else {
 				if (width >= patioWidth + 64 && panelsWidth === 72) {
@@ -57,13 +54,23 @@ export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
 		}
 	}
 }
+// Inkorten per plaat
+export function perPlaat(sizeWidth, patioWidth, inkortenCM) {
+	if (inkortenCM === 0) {
+		return 0;
+	} else {
+		let inkortenPerPlaat = Math.floor(
+			(sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)
+		);
+		return inkortenPerPlaat;
+	}
+}
 
 export function glasOpMaatDepth(patioDepth, patioWidth) {
 	// Calculate depth
 	for (let i = 0; i < sizesDepth.length; i++) {
 		const depth = sizesDepth[i];
 		if (depth === patioDepth) {
-			console.log(depth);
 			return depth;
 		} else if (depth > patioDepth) {
 			return depth;
@@ -71,15 +78,21 @@ export function glasOpMaatDepth(patioDepth, patioWidth) {
 	}
 }
 
-export function cutPanels(patioWidth) {
+// Berekenen ongeharde panelen
+export function cutPanels(patioWidth, panelsWidth, panels) {
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
+		if (panelsWidth === 72) {
+			console.log('all panels');
+			console.log('ongehard');
+			return panels;
+		}
 		if (width === patioWidth) {
 			let panelsCut = 0;
 			return panelsCut;
 		}
 		if (width === patioWidth + 56) {
-			let panelsCut = 0;
+			let panelsCut = 2;
 			return panelsCut;
 		}
 
@@ -91,5 +104,16 @@ export function cutPanels(patioWidth) {
 			let panelsCut = 2;
 			return panelsCut;
 		}
+	}
+}
+
+export function cost(patioWidth, pricePerCut, panelsWidth, inkortenPerPlaat) {
+	if (patioWidth === width - 56) {
+		let cost = 0;
+		console.log('HALVE MAAT');
+		return cost;
+	} else {
+		let cost = cutPanels(patioWidth) * 102;
+		return cost;
 	}
 }
