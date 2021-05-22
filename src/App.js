@@ -37,7 +37,7 @@ function App() {
 	const cutCost = cost(patioWidth, pricePerCut);
 
 	const inkortenCM = sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + ' cm';
-	const inkortenPerPlaat = perPlaat(sizeWidth, patioWidth);
+	const inkortenPerPlaat = perPlaat(sizeWidth, patioWidth, inkortenCM);
 
 	return (
 		<div className="App">

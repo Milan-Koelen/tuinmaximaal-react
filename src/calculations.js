@@ -56,8 +56,10 @@ export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
 }
 // Inkorten per plaat
 export function perPlaat(sizeWidth, patioWidth, inkortenCM) {
-	if (inkortenCM === 0) {
-		return 0;
+	if (patioWidth === width - 56 || patioWidth === width - 28 || patioWidth === width) {
+		let cost = 0;
+		console.log('Geen snedes');
+		return cost;
 	} else {
 		let inkortenPerPlaat = Math.floor(
 			(sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)
@@ -108,9 +110,9 @@ export function cutPanels(patioWidth, panelsWidth, panels) {
 }
 
 export function cost(patioWidth, pricePerCut, panelsWidth, inkortenPerPlaat) {
-	if (patioWidth === width - 56) {
+	if (patioWidth === width - 56 || patioWidth === width - 28 || patioWidth === width) {
 		let cost = 0;
-		console.log('HALVE MAAT');
+		console.log('Geen snedes');
 		return cost;
 	} else {
 		let cost = cutPanels(patioWidth) * 102;
