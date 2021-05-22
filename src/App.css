@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 20vmin;
+  height: 15vmin;
   pointer-events: none;
   margin-bottom: 2em;
 }
@@ -20,6 +20,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin-top: .5vh;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);

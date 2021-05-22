@@ -9,11 +9,10 @@ import {
 	calculateSierstrips,
 	calculateTochtstrips,
 	calculateOverlapDoors,
-	calculateTotalOverlap,
-	glasOpMaatWidth,
-	glasOpMaatDepth,
-	cutPanels
-} from './calculations';
+	calculateTotalOverlap
+} from './calculateDoors.js';
+
+import { glasOpMaatWidth, glasOpMaatDepth, cutPanels } from './calculations';
 
 const DOORWIDTH = 98;
 
