@@ -1,7 +1,9 @@
 const sizesWidth = [ 306, 406, 506, 606, 706, 806, 906, 1006, 1106, 1206 ];
 const sizesDepth = [ 250, 300, 350, 400 ];
 let width = 0;
-// let panelsCut = 0;
+
+const SIZE_DIFFERENCE = 28;
+const MAX_CUT = 35;
 
 // Panelwidth
 export function panelWidth(patioDepth) {
@@ -18,65 +20,60 @@ export function panelsQty(patioWidth, panelsWidth) {
 	return panels;
 }
 
-export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
-	// Standard Depth
-	for (let i = 0; i < sizesWidth.length; i++) {
-		width = sizesWidth[i];
-		if (width === patioWidth && panelsWidth === 100) {
-			return width;
-		} else {
-			if (width === patioWidth - 56 && panelsWidth === 100) {
+export function glasOpMaatWidth(patioWidth, panelsWidth) {
+	if (panelsWidth === 100) {
+		// Standard Depth
+		for (let i = 0; i < sizesWidth.length; i++) {
+			width = sizesWidth[i];
+			if (width === patioWidth) {
 				return width;
 			}
-			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 100) {
+			if (width === patioWidth - SIZE_DIFFERENCE * 2) {
 				return width;
-			} else {
-				if (width >= patioWidth + 64 && panelsWidth === 100) {
-					return width;
-				} else {
-					// console.log('NO STANDARD DEPTH');
-				}
+			}
+			if (width >= patioWidth + SIZE_DIFFERENCE && width <= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
+				return width;
+			}
+			if (width >= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
+				return width;
 			}
 		}
-	}
-
-	// Custom Depth
-	for (let i = 0; i < sizesWidth.length; i++) {
-		width = sizesWidth[i];
-		if (width === patioWidth && panelsWidth === 72) {
-			let panels = Math.ceil(patioWidth / 72);
-			let reqSize = panels * 100 + 6;
-			return reqSize;
-		} else {
-			if (width === patioWidth - 56 && panelsWidth === 72) {
-				let panels = Math.ceil(patioWidth / 72);
+	} else if (panelsWidth === 72) {
+		// Custom Depth
+		for (let i = 0; i < sizesWidth.length; i++) {
+			width = sizesWidth[i];
+			if (width === patioWidth) {
+				let panels = Math.ceil(patioWidth / panelsWidth);
 				let reqSize = panels * 100 + 6;
 				return reqSize;
 			}
-			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 72) {
-				let panels = Math.ceil(patioWidth / 72);
+			if (width === patioWidth - SIZE_DIFFERENCE * 2) {
+				let panels = Math.ceil(patioWidth / panelsWidth);
 				let reqSize = panels * 100 + 6;
 				return reqSize;
-			} else {
-				if (width >= patioWidth + 64 && panelsWidth === 72) {
-					let panels = Math.ceil(patioWidth / 72);
-					let reqSize = panels * 100 + 6;
-					return reqSize;
-				} else {
-				}
+			}
+			if (width >= patioWidth + SIZE_DIFFERENCE && width <= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
+				let panels = Math.ceil(patioWidth / panelsWidth);
+				let reqSize = panels * 100 + 6;
+				return reqSize;
+			}
+			if (width > patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
+				let panels = Math.ceil(patioWidth / panelsWidth);
+				let reqSize = panels * 100 + 6;
+				return reqSize;
 			}
 		}
 	}
 }
 // Inkorten per plaat
 export function perPlaat(sizeWidth, patioWidth, inkortenCM) {
-	if (patioWidth === width - 56 || patioWidth === width - 28 || patioWidth === width) {
+	if (patioWidth === width - SIZE_DIFFERENCE * 2 || patioWidth === width - SIZE_DIFFERENCE || patioWidth === width) {
 		let cost = 0;
 		console.log('Geen snedes');
 		return cost;
 	} else {
 		let inkortenPerPlaat = Math.floor(
-			(sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)
+			(sizeWidth - cutPanels(patioWidth) * SIZE_DIFFERENCE - patioWidth) / cutPanels(patioWidth)
 		);
 		return inkortenPerPlaat;
 	}
@@ -107,36 +104,34 @@ export function cutPanels(patioWidth, panelsWidth, panels) {
 			let panelsCut = 0;
 			return panelsCut;
 		}
-		if (width === patioWidth + 56) {
+		if (width === patioWidth + SIZE_DIFFERENCE * 2) {
 			let panelsCut = 2;
 			return panelsCut;
 		}
 
-		if (width >= patioWidth + 28 && width < patioWidth + 63) {
+		if (width >= patioWidth + SIZE_DIFFERENCE && width <= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
 			let panelsCut = 1;
 			return panelsCut;
 		}
-		if (width >= patioWidth + 64) {
+		if (width > patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
 			let panelsCut = 2;
 			return panelsCut;
 		}
 	}
 }
 
-export function cost(patioWidth, pricePerCut, panelsWidth, inkortenPerPlaat) {
-	if (patioWidth === width - 56 || patioWidth === width - 28 || patioWidth === width) {
-		let cost = 0;
+export function cost(patioWidth, pricePerCut) {
+	if (patioWidth === width || patioWidth === width - SIZE_DIFFERENCE || patioWidth === width - SIZE_DIFFERENCE * 2) {
 		console.log('Geen snedes');
-		return cost;
+		return 0;
 	} else {
-		let cost = cutPanels(patioWidth) * 102;
-		return cost;
+		return cutPanels(patioWidth) * pricePerCut;
 	}
 }
 // cmInkorten
 export function inkorten(sizeWidth, patioWidth, panelsWidth, panels) {
 	if (panelsWidth === 100) {
-		let cmInkorten = sizeWidth - cutPanels(patioWidth) * 28 - patioWidth;
+		let cmInkorten = sizeWidth - cutPanels(patioWidth) * SIZE_DIFFERENCE - patioWidth;
 		console.log('normal');
 		return cmInkorten;
 	} else {
