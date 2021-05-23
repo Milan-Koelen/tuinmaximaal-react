@@ -12,7 +12,16 @@ import {
 	calculateTotalOverlap
 } from './calculateDoors.js';
 
-import { glasOpMaatWidth, panelsQty, glasOpMaatDepth, cutPanels, panelWidth, perPlaat, cost } from './calculations';
+import {
+	glasOpMaatWidth,
+	inkorten,
+	panelsQty,
+	glasOpMaatDepth,
+	cutPanels,
+	panelWidth,
+	perPlaat,
+	cost
+} from './calculations';
 
 const DOORWIDTH = 98;
 
@@ -36,7 +45,7 @@ function App() {
 	const pricePerCut = 102;
 	const cutCost = cost(patioWidth, pricePerCut);
 
-	const inkortenCM = sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + ' cm';
+	const inkortenCM = inkorten(sizeWidth, patioWidth, panelsWidth, panels) + ' cm';
 	const inkortenPerPlaat = perPlaat(sizeWidth, patioWidth, inkortenCM);
 
 	return (
@@ -122,18 +131,18 @@ function App() {
 							</label>
 						</p>
 						<div>
-							Benodigde breedte maat: {panels * 100 + 6 + ' cm'}
+							Benodigde breedte maat: {sizeWidth + ' cm'}
 							<br />
 							Benodigde diepte maat: {glasOpMaatDepth(patioDepth) + ' cm'}
 							<br />
 							<br />
-							Aantal panelen: {}
+							Aantal panelen: {panels}
 							<br />
 							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />
 							Totaal inkorten: {inkortenCM}
 							<br />
-							Inkorten per plaat: {inkortenPerPlaat + ' cm'}
+							Inkorten per kant: {inkortenPerPlaat + ' cm'}
 							<br />
 							<br />
 							Kosten glas op maat: &euro;{cutCost}

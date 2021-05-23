@@ -44,24 +44,24 @@ export function glasOpMaatWidth(patioWidth, panels, panelsWidth) {
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
 		if (width === patioWidth && panelsWidth === 72) {
-			console.log(panels + '*' + panelsWidth);
-			console.log(panels * panelsWidth);
-			return panels * panelsWidth;
+			let panels = Math.ceil(patioWidth / 72);
+			let reqSize = panels * 100 + 6;
+			return reqSize;
 		} else {
 			if (width === patioWidth - 56 && panelsWidth === 72) {
-				console.log(panels + '*' + panelsWidth);
-				console.log(panels * panelsWidth);
-				return panels * panelsWidth;
+				let panels = Math.ceil(patioWidth / 72);
+				let reqSize = panels * 100 + 6;
+				return reqSize;
 			}
 			if (width >= patioWidth + 28 && width <= patioWidth + 64 && panelsWidth === 72) {
-				console.log(panels + '*' + panelsWidth);
-				console.log(panels * panelsWidth);
-				return panels * panelsWidth;
+				let panels = Math.ceil(patioWidth / 72);
+				let reqSize = panels * 100 + 6;
+				return reqSize;
 			} else {
 				if (width >= patioWidth + 64 && panelsWidth === 72) {
-					console.log(panels + '*' + panelsWidth);
-					console.log(panels * panelsWidth);
-					return panels * panelsWidth;
+					let panels = Math.ceil(patioWidth / 72);
+					let reqSize = panels * 100 + 6;
+					return reqSize;
 				} else {
 				}
 			}
@@ -131,5 +131,17 @@ export function cost(patioWidth, pricePerCut, panelsWidth, inkortenPerPlaat) {
 	} else {
 		let cost = cutPanels(patioWidth) * 102;
 		return cost;
+	}
+}
+// cmInkorten
+export function inkorten(sizeWidth, patioWidth, panelsWidth, panels) {
+	if (panelsWidth === 100) {
+		let cmInkorten = sizeWidth - cutPanels(patioWidth) * 28 - patioWidth;
+		console.log('normal');
+		return cmInkorten;
+	} else {
+		let cmInkorten = panels * panelsWidth - patioWidth;
+		console.log('special');
+		return cmInkorten;
 	}
 }
