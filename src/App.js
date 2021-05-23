@@ -12,7 +12,16 @@ import {
 	calculateTotalOverlap
 } from './calculateDoors.js';
 
-import { glasOpMaatWidth, glasOpMaatDepth, cutPanels } from './calculations';
+import {
+	glasOpMaatWidth,
+	inkorten,
+	panelsQty,
+	glasOpMaatDepth,
+	cutPanels,
+	panelWidth,
+	perPlaat,
+	cost
+} from './calculations';
 
 const DOORWIDTH = 98;
 
@@ -26,10 +35,19 @@ function App() {
 	const sierStrips = calculateSierstrips(windowCount);
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
-	const panels = Math.ceil((patioWidth - 6) / 100);
-	const [ mode, setMode ] = useState('deuren');
-	const sizeWidth = glasOpMaatWidth(patioWidth);
+
+	const panelsWidth = panelWidth(patioDepth);
+	const [ mode, setMode ] = useState('glasOpMaat');
+
+	const panels = panelsQty(patioWidth, panelsWidth);
+	const sizeWidth = glasOpMaatWidth(patioWidth, panels, panelsWidth);
+
 	const pricePerCut = 102;
+	const cutCost = cost(patioWidth, pricePerCut);
+
+	const inkortenCM = inkorten(sizeWidth, patioWidth, panelsWidth, panels) + ' cm';
+	const inkortenPerPlaat = perPlaat(sizeWidth, patioWidth, inkortenCM);
+
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -69,7 +87,7 @@ function App() {
 							/>
 						</label> */}
 						<div>
-							Rail lengte: {railLength}
+							Rail lengte: {railLength + ' cm'}
 							<br />
 							Deuren: {windowCount}
 							<br />
@@ -77,58 +95,61 @@ function App() {
 							<br />
 							Tochtstrips: {tochtStrips}
 							<br />
-							Totale overlap: {totalOverlap}
+							Totale overlap: {totalOverlap + ' cm'}
 							<br />
-							Overlap per deur: {overlapDoors}
+							Overlap per deur: {overlapDoors + ' cm'}
 							<br />
 						</div>
 					</div>
 				)}
 
+				{/* GLAS OP MAAT */}
+
 				{mode === 'glasOpMaat' && (
 					<div>
-						<label>
-							Breedte in cm<br />
-							<input
-								className="valueInput"
-								type="number"
-								placeholder="506"
-								value={patioWidth}
-								onChange={(e) => setPatioWith(Number(e.target.value))}
-							/>
-						</label>
-						<br />
-						{/* <label>
-							Diepte in cm<br />
-							<input
-								className="valueInput"
-								type="number"
-								placeholder="350"
-								value={patioDepth}
-								onChange={(e) => setpatioDepth(Number(e.target.value))}
-							/>
-						</label> */}
-						<div>
-							Benodigde breedte maat: {glasOpMaatWidth(patioWidth)}
+						<p>
+							<label>
+								Breedte in cm<br />
+								<input
+									className="valueInput"
+									type="number"
+									placeholder="506"
+									value={patioWidth}
+									onChange={(e) => setPatioWith(Number(e.target.value))}
+								/>
+							</label>
 							<br />
-							{/* Benodigde diepte maat: {glasOpMaatDepth(patioDepth)} */}
+							<label>
+								Diepte in cm<br />
+								<input
+									className="valueInput"
+									type="number"
+									placeholder="350"
+									value={patioDepth}
+									onChange={(e) => setpatioDepth(Number(e.target.value))}
+								/>
+							</label>
+						</p>
+						<div>
+							Benodigde breedte maat: {sizeWidth + ' cm'}
+							<br />
+							Benodigde diepte maat: {glasOpMaatDepth(patioDepth) + ' cm'}
+							<br />
 							<br />
 							Aantal panelen: {panels}
 							<br />
 							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />
-							Totaal inkorten: {sizeWidth - cutPanels(patioWidth) * 28 - patioWidth + 'cm'}
+							Totaal inkorten: {inkortenCM}
 							<br />
-							Inkorten per plaat:{' '}
-							{Math.floor((sizeWidth - cutPanels(patioWidth) * 28 - patioWidth) / cutPanels(patioWidth)) +
-								'cm'}
+							Inkorten per kant: {inkortenPerPlaat + ' cm'}
 							<br />
 							<br />
-							Kosten glas op maat: &euro;{cutPanels(patioWidth) * pricePerCut}
+							Kosten glas op maat: &euro;{cutCost}
 							<br />
 						</div>
 
-						{/* <Display panels={Math.ceil(patioWidth / 100)} /> */}
+						{/* <Display panels={Math.ceil(patioWidth / 100)} /> */ console.log('PAGE LOADED')}
 					</div>
 				)}
 			</header>
