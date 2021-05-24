@@ -258,14 +258,14 @@ function App() {
 									</div>
 								</Typography>
 								<div>
-									<Button
+									{/* <Button
 										component={Link}
 										to="urlGenerator(depthUrl, widthUrl, sizesWidth, sizesDepth glasOpMaatDepth)"
 										variant="contained"
 										color="secondary"
 									>
 										Show offer{' '}
-									</Button>
+									</Button> */}
 								</div>
 
 								{/* <Display panels={Math.ceil(patioWidth / 100)} /> */}
