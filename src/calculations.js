@@ -16,7 +16,7 @@ export function panelWidth(patioDepth) {
 
 // Panels
 export function panelsQty(patioWidth, panelsWidth) {
-	let panels = Math.ceil(patioWidth / panelsWidth);
+	let panels = Math.ceil((patioWidth - 6) / panelsWidth);
 	return panels;
 }
 
@@ -92,12 +92,12 @@ export function glasOpMaatDepth(patioDepth, patioWidth) {
 }
 
 // Berekenen ongeharde panelen
-export function cutPanels(patioWidth, panelsWidth, panels) {
+export function cutPanels(patioWidth, panels, sizesDepth) {
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
-		if (panelsWidth === 72) {
+		if (sizesDepth === 250 || 300 || 350 || 400) {
 			console.log('all panels');
-			console.log('ongehard');
+			console.log(panels);
 			return panels;
 		}
 		if (width === patioWidth) {
@@ -132,11 +132,11 @@ export function cost(patioWidth, pricePerCut) {
 export function inkorten(sizeWidth, patioWidth, panelsWidth, panels) {
 	if (panelsWidth === 100) {
 		let cmInkorten = sizeWidth - cutPanels(patioWidth) * SIZE_DIFFERENCE - patioWidth;
-		console.log('normal');
+		// console.log('normal');
 		return cmInkorten;
 	} else {
 		let cmInkorten = panels * panelsWidth - patioWidth;
-		console.log('special');
+		// console.log('special');
 		return cmInkorten;
 	}
 }

@@ -3,7 +3,7 @@ import './App.css';
 
 // import Display from './Display';
 
-import React, { useState } from 'react';
+import React, { useState, Link } from 'react';
 import clsx from 'clsx';
 import {
 	Button,
@@ -27,6 +27,8 @@ import {
 	calculateTotalOverlap
 } from './calculateDoors.js';
 
+import { urlGenerator } from './urlGenerator';
+
 import {
 	glasOpMaatWidth,
 	inkorten,
@@ -37,7 +39,9 @@ import {
 	perPlaat,
 	cost
 } from './calculations';
+
 import { green, orange } from '@material-ui/core/colors';
+// import { Link } from 'react-router-dom';
 
 const DOORWIDTH = 98;
 
@@ -71,6 +75,11 @@ function App() {
 	const panelsWidth = panelWidth(patioDepth);
 	const [ mode, setMode ] = useState('glasOpMaat');
 
+	const sizesWidth = [ 306, 406, 506, 606, 706, 806, 906, 1006, 1106, 1206 ];
+	const sizesDepth = [ 250, 300, 350, 400 ];
+
+	const requiredWidth = glasOpMaatDepth(patioDepth);
+
 	const panels = panelsQty(patioWidth, panelsWidth);
 	const sizeWidth = glasOpMaatWidth(patioWidth, panelsWidth);
 
@@ -79,6 +88,10 @@ function App() {
 
 	const inkortenCM = inkorten(sizeWidth, patioWidth, panelsWidth, panels) + ' cm';
 	const inkortenPerPlaat = perPlaat(sizeWidth, patioWidth, inkortenCM);
+
+	const depthUrl = [ 86, 47, 46, 45 ];
+	const widthUrl = [ 84, 49, 50, 51, 91, 90, 89, 98, 99, 100 ];
+	const URLGenerator = urlGenerator(depthUrl, widthUrl, sizesWidth, sizesDepth, patioDepth, requiredWidth);
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -149,7 +162,9 @@ function App() {
 							onChange={(e) => setpatioDepth(Number(e.target.value))}
 						/>
 					</label> */}
+
 								<Typography variant="h5" gutterBottom>
+
 									<div>
 										Rail lengte: {railLength + ' cm'}
 										<br />
@@ -186,6 +201,11 @@ function App() {
 											}}
 										/>
 										<FormHelperText id="standard-weight-helper-text">Breedte in cm</FormHelperText>
+									</FormControl>
+									<br />
+									<FormControl
+										className={clsx(classes.margin, classes.withoutLabel, classes.textField)}
+									>
 										<Input
 											// id="standard-adornment-weight"
 											value={patioDepth}
@@ -219,11 +239,13 @@ function App() {
 										/>
 									</label> */}
 								</p>
+
 								<Typography variant="h5" gutterBottom>
+
 									<div>
 										Benodigde breedte maat: {sizeWidth + ' cm'}
 										<br />
-										Benodigde diepte maat: {glasOpMaatDepth(patioDepth) + ' cm'}
+										Benodigde diepte maat: {requiredWidth + ' cm'}
 										<br />
 										<br />
 										Aantal panelen: {panels}
@@ -232,7 +254,7 @@ function App() {
 										<br />
 										Totaal inkorten: {inkortenCM}
 										<br />
-										Inkorten per kant: {inkortenPerPlaat + ' cm'}
+										{/* Inkorten per kant: {inkortenPerPlaat + ' cm'} */}
 										<br />
 										<br />
 										Kosten glas op maat: &euro;{cutCost}
@@ -240,7 +262,12 @@ function App() {
 									</div>
 								</Typography>
 								<div>
-									{/* <Button variant="contained" color="secondary">
+									{/* <Button
+										component={Link}
+										to="urlGenerator(depthUrl, widthUrl, sizesWidth, sizesDepth glasOpMaatDepth)"
+										variant="contained"
+										color="secondary"
+									>
 										Show offer{' '}
 									</Button> */}
 								</div>
