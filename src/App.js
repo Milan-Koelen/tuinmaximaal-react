@@ -3,9 +3,11 @@ import './App.css';
 
 // import Display from './Display';
 
-import React, { useState, Link } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
+
 import {
+	Link,
 	Button,
 	TextField,
 	Typography,
@@ -258,13 +260,76 @@ function App() {
 									</div>
 								</Typography>
 								<div>
+									<Link
+										component="button"
+										variant="contained"
+										color="secondary"
+										onClick={() => {
+											urlGenerator(
+												depthUrl,
+												widthUrl,
+												sizesWidth,
+												sizesDepth,
+												patioDepth,
+												requiredWidth
+											);
+											console.info(
+												urlGenerator(
+													depthUrl,
+													widthUrl,
+													sizesWidth,
+													sizesDepth,
+													patioDepth,
+													requiredWidth
+												)
+											);
+										}}
+									>
+										<Button
+											// onClick={urlGenerator(
+											// 	depthUrl,
+											// 	widthUrl,
+											// 	sizesWidth,
+											// 	sizesDepth,
+											// 	patioDepth,
+											// 	requiredWidth
+											// )}
+											// to={urlGenerator(
+											// 	depthUrl,
+											// 	widthUrl,
+											// 	sizesWidth,
+											// 	sizesDepth,
+											// 	glasOpMaatDepth
+											// )}
+											variant="contained"
+											color="secondary"
+											href={urlGenerator(
+												depthUrl,
+												widthUrl,
+												sizesWidth,
+												sizesDepth,
+												patioDepth,
+												requiredWidth
+											)}
+										>
+											Show offer{''}
+										</Button>
+										{/* Show Offer */}
+									</Link>
 									{/* <Button
-										component={Link}
-										to="urlGenerator(depthUrl, widthUrl, sizesWidth, sizesDepth glasOpMaatDepth)"
+										onClick={urlGenerator(
+											depthUrl,
+											widthUrl,
+											sizesWidth,
+											sizesDepth,
+											patioDepth,
+											requiredWidth
+										)}
+										to={urlGenerator(depthUrl, widthUrl, sizesWidth, sizesDepth, glasOpMaatDepth)}
 										variant="contained"
 										color="secondary"
 									>
-										Show offer{' '}
+										Show offer{''}
 									</Button> */}
 								</div>
 
