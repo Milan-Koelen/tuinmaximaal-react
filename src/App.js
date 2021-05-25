@@ -164,7 +164,9 @@ function App() {
 							onChange={(e) => setpatioDepth(Number(e.target.value))}
 						/>
 					</label> */}
-								<Typography variant="h6" gutterBottom>
+
+								<Typography variant="h5" gutterBottom>
+
 									<div>
 										Rail lengte: {railLength + ' cm'}
 										<br />
@@ -239,7 +241,9 @@ function App() {
 										/>
 									</label> */}
 								</p>
-								<Typography variant="h6" gutterBottom>
+
+								<Typography variant="h5" gutterBottom>
+
 									<div>
 										Benodigde breedte maat: {sizeWidth + ' cm'}
 										<br />
