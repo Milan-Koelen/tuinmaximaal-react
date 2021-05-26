@@ -20,22 +20,65 @@ export function panelsQty(patioWidth, panelsWidth) {
 	return panels;
 }
 
+export function glasOpMaat(patioWidth, patioDepth) {
+	const depth = glasOpMaatDepth(patioDepth);
+
+	const panelsWidth = panelWidth(patioDepth);
+
+	return {
+		width: 123,
+		depth: depth,
+		widthCuts: 2,
+		depthCuts: 3
+	};
+}
+
+function isStandardSize(patioWidth) {
+	for (let i = 0; i < sizesWidth.length; i++) {
+		width = sizesWidth[i];
+		if (width === patioWidth) {
+			return true;
+		}
+		if (width === patioWidth - SIZE_DIFFERENCE * 2) {
+			return true;
+		}
+		if (width >= patioWidth + SIZE_DIFFERENCE && width <= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
+			return true;
+		}
+		if (width >= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
+			return true;
+		}
+	}
+}
+
 export function glasOpMaatWidth(patioWidth, panelsWidth) {
 	if (panelsWidth === 100) {
 		// Standard Depth
 		for (let i = 0; i < sizesWidth.length; i++) {
 			width = sizesWidth[i];
 			if (width === patioWidth) {
-				return width;
+				return {
+					width: width,
+					panelsCut: 0
+				};
 			}
 			if (width === patioWidth - SIZE_DIFFERENCE * 2) {
-				return width;
+				return {
+					width: width,
+					panelsCut: 2
+				};
 			}
 			if (width >= patioWidth + SIZE_DIFFERENCE && width <= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
-				return width;
+				return {
+					width: width,
+					panelsCut: 1
+				};
 			}
 			if (width >= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
-				return width;
+				return {
+					width: width,
+					panelsCut: 1
+				};
 			}
 		}
 	} else if (panelsWidth === 72) {
@@ -43,43 +86,57 @@ export function glasOpMaatWidth(patioWidth, panelsWidth) {
 		for (let i = 0; i < sizesWidth.length; i++) {
 			width = sizesWidth[i];
 			if (width === patioWidth) {
-				let panels = Math.ceil(patioWidth / panelsWidth);
+				let panels = Math.ceil((patioWidth - 6) / panelsWidth);
 				let reqSize = panels * 100 + 6;
-				return reqSize;
+				return {
+					width: reqSize,
+					panelsCut: panels
+				};
 			}
 			if (width === patioWidth - SIZE_DIFFERENCE * 2) {
-				let panels = Math.ceil(patioWidth / panelsWidth);
+				let panels = Math.ceil((patioWidth - 6) / panelsWidth);
 				let reqSize = panels * 100 + 6;
-				return reqSize;
+				return {
+					width: reqSize,
+					panelsCut: panels
+				};
 			}
 			if (width >= patioWidth + SIZE_DIFFERENCE && width <= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
-				let panels = Math.ceil(patioWidth / panelsWidth);
+				let panels = Math.ceil((patioWidth - 6) / panelsWidth);
 				let reqSize = panels * 100 + 6;
-				return reqSize;
+				return {
+					width: reqSize,
+					panelsCut: panels
+				};
 			}
 			if (width > patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
-				let panels = Math.ceil(patioWidth / panelsWidth);
+				let panels = Math.ceil((patioWidth - 6) / panelsWidth);
 				let reqSize = panels * 100 + 6;
-				return reqSize;
+				return {
+					width: reqSize,
+					panelsCut: panels
+				};
 			}
 		}
 	}
 }
 // Inkorten per plaat
+// symmetrie toepassen??
 export function perPlaat(sizeWidth, patioWidth, inkortenCM) {
 	if (patioWidth === width - SIZE_DIFFERENCE * 2 || patioWidth === width - SIZE_DIFFERENCE || patioWidth === width) {
 		let cost = 0;
 		console.log('Geen snedes');
 		return cost;
 	} else {
-		let inkortenPerPlaat = Math.floor(
-			(sizeWidth - cutPanels(patioWidth) * SIZE_DIFFERENCE - patioWidth) / cutPanels(patioWidth)
-		);
-		return inkortenPerPlaat;
+		// let inkortenPerPlaat = Math.floor(
+		// 	(sizeWidth - cutPanels(patioWidth) * SIZE_DIFFERENCE - patioWidth) / cutPanels(patioWidth)
+		// );
+		// return inkortenPerPlaat;
+		return 2;
 	}
 }
 
-export function glasOpMaatDepth(patioDepth, patioWidth) {
+export function glasOpMaatDepth(patioDepth) {
 	// Calculate depth
 	for (let i = 0; i < sizesDepth.length; i++) {
 		const depth = sizesDepth[i];
@@ -95,28 +152,25 @@ export function glasOpMaatDepth(patioDepth, patioWidth) {
 export function cutPanels(patioWidth, panels, sizesDepth) {
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
-		if (sizesDepth === 250 || 300 || 350 || 400) {
+		let panelsCut = 0;
+		if (sizesDepth === 250 || sizesDepth === 300 || sizesDepth === 350 || sizesDepth === 400) {
 			console.log('all panels');
 			console.log(panels);
-			return panels;
 		}
 		if (width === patioWidth) {
-			let panelsCut = 0;
-			return panelsCut;
+			panelsCut = 0;
 		}
 		if (width === patioWidth + SIZE_DIFFERENCE * 2) {
-			let panelsCut = 2;
-			return panelsCut;
+			panelsCut = 2;
 		}
 
 		if (width >= patioWidth + SIZE_DIFFERENCE && width <= patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
-			let panelsCut = 1;
-			return panelsCut;
+			panelsCut = 1;
 		}
 		if (width > patioWidth + (SIZE_DIFFERENCE + MAX_CUT)) {
-			let panelsCut = 2;
-			return panelsCut;
+			panelsCut = 2;
 		}
+		return panelsCut;
 	}
 }
 
@@ -135,7 +189,7 @@ export function inkorten(sizeWidth, patioWidth, panelsWidth, panels) {
 		// console.log('normal');
 		return cmInkorten;
 	} else {
-		let cmInkorten = panels * panelsWidth - patioWidth;
+		let cmInkorten = panels * panelsWidth - patioWidth + 6;
 		// console.log('special');
 		return cmInkorten;
 	}

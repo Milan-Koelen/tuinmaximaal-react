@@ -62,12 +62,13 @@ export default function Calculator() {
 	const sizesDepth = [ 250, 300, 350, 400 ];
 
 	const requiredWidth = glasOpMaatDepth(patioDepth);
+	const panelsCut = glasOpMaatWidth(patioWidth, panelsWidth);
 
 	const panels = panelsQty(patioWidth, panelsWidth);
 	const sizeWidth = glasOpMaatWidth(patioWidth, panelsWidth);
 
-	const depthIdx = sizesDepth.findIndex((size) => size === requiredWidth);
-	const widthIdx = sizesWidth.findIndex((size) => size === sizeWidth);
+	const depthIdx = sizesDepth.findIndex((size) => size === requiredWidth.width);
+	const widthIdx = sizesWidth.findIndex((size) => size === sizeWidth.width);
 
 	const pricePerCut = 102;
 	const cutCost = cost(patioWidth, pricePerCut);
@@ -160,7 +161,7 @@ export default function Calculator() {
 
 					<Typography variant="h5" gutterBottom>
 						<div>
-							Benodigde breedte maat: {sizeWidth + ' cm'}
+							Benodigde breedte maat: {sizeWidth.width + ' cm'}
 							<br />
 							Benodigde diepte maat: {requiredWidth + ' cm'}
 							<br />
