@@ -28,7 +28,7 @@ import {
 	panelsQty,
 	glasOpMaatDepth,
 	cutPanels,
-	panelWidth,
+	panelInfo,
 	cost
 	// perPlaat
 } from './calculations';
@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const DOORWIDTH = 98;
 
 export default function Calculator() {
+	// Glazen schuifdeuren
 	const [ railLength, setRailLength ] = useState(DOORWIDTH * 4);
 	const [ patioDepth, setpatioDepth ] = useState(350);
 	const [ patioWidth, setPatioWith ] = useState(506);
@@ -55,25 +56,29 @@ export default function Calculator() {
 	const tochtStrips = calculateTochtstrips(windowCount);
 	const overlapDoors = calculateOverlapDoors(windowCount, railLength);
 
-	const panelsWidth = panelWidth(patioDepth);
+	// Glas op maat
+
+	const panelsInfo = panelInfo(patioDepth);
 	const [ mode, setMode ] = useState('glasOpMaat');
 
-	const sizesWidth = [ 306, 406, 506, 606, 706, 806, 906, 1006, 1106, 1206 ];
+	// const sizesWidth = [ 306, 406, 506, 606, 706, 806, 906, 1006, 1106, 1206 ];
 	const sizesDepth = [ 250, 300, 350, 400 ];
+	const panels = panelsQty(patioWidth, panelsInfo);
 
-	const requiredWidth = glasOpMaatDepth(patioDepth);
-	const panelsCut = glasOpMaatWidth(patioWidth, panelsWidth);
+	const requiredWidth = glasOpMaatDepth(patioDepth, panels);
+	const panelsCut = glasOpMaatWidth(patioWidth, panelsInfo);
 
-	const panels = panelsQty(patioWidth, panelsWidth);
-	const sizeWidth = glasOpMaatWidth(patioWidth, panelsWidth);
+	const sizeWidth = glasOpMaatWidth(patioWidth, panelsInfo);
 
-	const depthIdx = sizesDepth.findIndex((size) => size === requiredWidth.width);
-	const widthIdx = sizesWidth.findIndex((size) => size === sizeWidth.width);
+	const depthIdx = panelsInfo.index;
+	// const widthIdx = sizesWidth.findIndex((size) => size === sizeWidth.width);
+	const widthIndx = requiredWidth.index;
+	// const depthIndx = requiredDepth.index;
 
 	const pricePerCut = 102;
 	const cutCost = cost(patioWidth, pricePerCut);
 
-	const inkortenCM = inkorten(sizeWidth, patioWidth, panelsWidth, panels) + ' cm';
+	const inkortenCM = inkorten(sizeWidth, patioWidth, panelsInfo, panels) + ' cm';
 
 	return (
 		<div>
@@ -161,14 +166,14 @@ export default function Calculator() {
 
 					<Typography variant="h5" gutterBottom>
 						<div>
-							Benodigde breedte maat: {sizeWidth.width + ' cm'}
+							Breedte maat: {glasOpMaatWidth(patioWidth, panelsInfo).width + ' cm'}
 							<br />
-							Benodigde diepte maat: {requiredWidth + ' cm'}
+							Diepte maat: {requiredWidth.depth + ' cm'}
 							<br />
 							<br />
 							Aantal panelen: {panels}
 							<br />
-							Waarvan ongehard: {cutPanels(patioWidth)}
+							Waarvan ongehard: {panelsCut(patioWidth, panelsInfo).panelsCut}
 							<br />
 							Totaal inkorten: {inkortenCM}
 							<br />
@@ -184,7 +189,7 @@ export default function Calculator() {
 							variant="contained"
 							color="secondary"
 							onClick={() => {
-								const url = urlGenerator(widthIdx, depthIdx);
+								const url = urlGenerator(widthIndx, depthIdx);
 
 								window.open(url, '_blank');
 							}}

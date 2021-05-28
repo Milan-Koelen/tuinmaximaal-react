@@ -5,12 +5,17 @@ let width = 0;
 const SIZE_DIFFERENCE = 28;
 const MAX_CUT = 35;
 
-// Panelwidth
-export function panelWidth(patioDepth) {
+// Panelwidth & depth
+export function panelInfo(patioDepth) {
 	for (let i = 0; i < sizesDepth.length; i++) {
 		if (patioDepth === sizesDepth[i]) {
 			return 100;
-		} else if (patioDepth <= sizesDepth[i]) return 72;
+		} else if (patioDepth <= sizesDepth[i])
+			return {
+				width: 72,
+				depth: sizesDepth,
+				index: i
+			};
 	}
 }
 
@@ -23,14 +28,14 @@ export function panelsQty(patioWidth, panelsWidth) {
 export function glasOpMaat(patioWidth, patioDepth) {
 	const depth = glasOpMaatDepth(patioDepth);
 
-	const panelsWidth = panelWidth(patioDepth);
+	const panelsWidth = panelInfo(patioDepth);
 
-	return {
-		width: 123,
-		depth: depth,
-		widthCuts: 2,
-		depthCuts: 3
-	};
+	// return {
+	// 	width: 123,
+	// 	depth: depth,
+	// 	widthCuts: 2,
+	// 	depthCuts: 3
+	// };
 }
 
 function isStandardSize(patioWidth) {
@@ -136,14 +141,21 @@ export function perPlaat(sizeWidth, patioWidth, inkortenCM) {
 	}
 }
 
-export function glasOpMaatDepth(patioDepth) {
+export function glasOpMaatDepth(patioDepth, panels) {
 	// Calculate depth
 	for (let i = 0; i < sizesDepth.length; i++) {
 		const depth = sizesDepth[i];
 		if (depth === patioDepth) {
-			return depth;
+			return {
+				depth: depth,
+				index: i
+			};
 		} else if (depth > patioDepth) {
-			return depth;
+			return {
+				depth: depth,
+				panelsCut: panels,
+				index: i
+			};
 		}
 	}
 }
@@ -153,9 +165,10 @@ export function cutPanels(patioWidth, panels, sizesDepth) {
 	for (let i = 0; i < sizesWidth.length; i++) {
 		width = sizesWidth[i];
 		let panelsCut = 0;
-		if (sizesDepth === 250 || sizesDepth === 300 || sizesDepth === 350 || sizesDepth === 400) {
+		if (sizesDepth !== 250 || sizesDepth !== 300 || sizesDepth !== 350 || sizesDepth !== 400) {
 			console.log('all panels');
 			console.log(panels);
+			panelsCut = 0;
 		}
 		if (width === patioWidth) {
 			panelsCut = 0;
@@ -184,13 +197,14 @@ export function cost(patioWidth, pricePerCut) {
 }
 // cmInkorten
 export function inkorten(sizeWidth, patioWidth, panelsWidth, panels) {
+	let cmInkorten = 420;
 	if (panelsWidth === 100) {
-		let cmInkorten = sizeWidth - cutPanels(patioWidth) * SIZE_DIFFERENCE - patioWidth;
+		cmInkorten = sizeWidth - cutPanels(patioWidth) * SIZE_DIFFERENCE - patioWidth + 6;
 		// console.log('normal');
-		return cmInkorten;
-	} else {
-		let cmInkorten = panels * panelsWidth - patioWidth + 6;
-		// console.log('special');
-		return cmInkorten;
 	}
+	if (panelsWidth === 72) {
+		cmInkorten = panels * panelsWidth - patioWidth + 6;
+		// console.log('special');
+	}
+	return cmInkorten;
 }
