@@ -72,7 +72,7 @@ export default function Calculator() {
 	const pricePerCut = 102;
 	const cutCost = cost(patioWidth, pricePerCut);
 
-	const inkortenCM = inkorten(sizeWidth, patioWidth, panelsWidth, panels) + ' cm';
+	const inkortenCM = inkorten(sizeWidth, patioWidth, panelsWidth, panels) + 6 + ' cm';
 
 	return (
 		<div>
@@ -169,7 +169,7 @@ export default function Calculator() {
 							<br />
 							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />
-							Totaal inkorten: {inkortenCM + 6}
+							Totaal inkorten: {inkortenCM}
 							<br />
 							{/* Inkorten per kant: {inkortenPerPlaat + ' cm'} */}
 							<br />
