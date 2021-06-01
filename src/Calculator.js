@@ -169,7 +169,7 @@ export default function Calculator() {
 							<br />
 							Waarvan ongehard: {cutPanels(patioWidth)}
 							<br />
-							Totaal inkorten: {inkortenCM}
+							Totaal inkorten: {inkortenCM + 6}
 							<br />
 							{/* Inkorten per kant: {inkortenPerPlaat + ' cm'} */}
 							<br />
